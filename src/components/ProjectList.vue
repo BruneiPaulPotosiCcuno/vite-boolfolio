@@ -1,8 +1,12 @@
 <script>
 import axios from 'axios';
+import SingleProject from './SingleProject.vue';
 
 export default {
     name: 'ProjectList',
+    components:{
+        SingleProject,
+    },
     data() {
         return {
             projects: []
@@ -11,11 +15,11 @@ export default {
     },
     methods: {
 
-        getProjects(){
+        getProjects() {
             axios.get('http://127.0.0.1:8000/api/posts')
-            .then((response) => {
-                console.log(response);
-            })
+                .then((response) => {
+                    this.projects = response.data.results
+                })
         }
     },
     mounted() {
@@ -28,18 +32,12 @@ export default {
     <div class="container">
         <h1>Questi sono tutti i post:</h1>
         <div class="row row-cols-3">
-            <div class="card">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-</div>
+            <SingleProject v-for="project in projects" :projectDetails="project" :key="project.id"></SingleProject>
         </div>
+
+
+
     </div>
 </template>
 
-<style scoped lang="scss">
-
-
-</style>
+<style scoped lang="scss"></style>

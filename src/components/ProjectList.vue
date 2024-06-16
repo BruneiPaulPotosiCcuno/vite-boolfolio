@@ -1,6 +1,26 @@
 <script>
+import axios from 'axios';
+
 export default {
-    name: 'ProjectList'
+    name: 'ProjectList',
+    data() {
+        return {
+            projects: []
+        };
+
+    },
+    methods: {
+
+        getProjects(){
+            axios.get('http://127.0.0.1:8000/api/posts')
+            .then((response) => {
+                console.log(response);
+            })
+        }
+    },
+    mounted() {
+        this.getProjects();
+    },
 }
 </script>
 
